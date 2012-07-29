@@ -1,0 +1,15 @@
+parameters:
+#    erichard_bankup.example.class: Erichard\BankupBundle\Example
+
+services:
+
+    erichard_bankup.bank:
+        abstract: true
+        class: Erichard\BankupBundle\Bank\Connection
+        arguments:
+            - ~ #name
+            - ~ # options
+
+    erichard_bankup.manager:
+        class: Knab\BankManager
+
