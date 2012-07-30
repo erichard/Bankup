@@ -1,0 +1,16 @@
+parameters:
+    database_driver:   pdo_sqlite
+    database_host:     localhost
+    database_path:     %kernel.root_dir%/Resources/database.sqlite
+    database_port:     ~
+    database_name:     symfony
+    database_user:     root
+    database_password: ~
+
+    mailer_transport:  smtp
+    mailer_host:       localhost
+    mailer_user:       ~
+    mailer_password:   ~
+
+    locale:            en
+    secret:            ThisTokenIsNotSoSecretChangeIt
