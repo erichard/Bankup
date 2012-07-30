@@ -1,18 +1,23 @@
-web1: #component type & number
-  name: claribel            #component settings
+web1:
+  name: claribel
   shared_writable_dirs:
     - app/cache
     - app/logs
   document_root: web
+  php_date_timezone: "Europe/Paris"
+  php_display_errors: "1"
+  php_short_open_tag: "0"
   php_extensions:
-    - xml
+    - apc
     - curl
     - pdo_mysql
-    - apc
+    - zip
   after_build:
     - "curl -s https://getcomposer.org/installer | php"
-    - "composer.phar update"
+    - "composer.phar -q install"
+  after_deploy:
+    - "app/console doctrine:schema:update --force"
 
-db1: #component type & number
-  name: bankup            #component settings
+db1:
+  name: bankup
   type: mysql
