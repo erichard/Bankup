@@ -1,0 +1,8 @@
+services:
+
+    erichard_bankup.rule.label_cleaner:
+        class: Erichard\BankupBundle\Rules\LabelCleanerRule
+        arguments:
+            - @doctrine
+        tags:
+            -  { name: erichard_bankup.rule, priority: 100 }

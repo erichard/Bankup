@@ -13,3 +13,5 @@ services:
     erichard_bankup.manager:
         class: Knab\BankManager
 
+    erichard_bankup.rules_manager:
+        class: Erichard\BankupBundle\Rules\RuleManager

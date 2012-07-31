@@ -2,8 +2,9 @@
 
 namespace Erichard\BankupBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Erichard\BankupBundle\DependencyInjection\Compiler\RegisterBankConnectionPass;
+use Erichard\BankupBundle\DependencyInjection\Compiler\RegisterRulesPass;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class ErichardBankupBundle extends Bundle
@@ -13,8 +14,9 @@ class ErichardBankupBundle extends Bundle
      */
     public function build(ContainerBuilder $container)
     {
-      parent::build($container);
+        parent::build($container);
 
-      $container->addCompilerPass(new RegisterBankConnectionPass());
+        $container->addCompilerPass(new RegisterBankConnectionPass());
+        $container->addCompilerPass(new RegisterRulesPass());
     }
   }
