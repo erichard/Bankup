@@ -36,9 +36,19 @@ class Operation
     private $balance;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     private $label;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $rawLabel;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Tag", mappedBy="operations")
+     */
+    private $tags;
 
     /**
      * Set id
@@ -131,10 +141,10 @@ class Operation
     /**
      * Set account
      *
-     * @param Erichard\BankupBundle\Entity\Account $account
+     * @param Account $account
      * @return Operation
      */
-    public function setAccount(\Erichard\BankupBundle\Entity\Account $account = null)
+    public function setAccount(Account $account = null)
     {
         $this->account = $account;
         return $this;
@@ -143,10 +153,90 @@ class Operation
     /**
      * Get account
      *
-     * @return Erichard\BankupBundle\Entity\Account 
+     * @return Account
      */
     public function getAccount()
     {
         return $this->account;
+    }
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add tags
+     *
+     * @param Tag $tag
+     * @return Operation
+     */
+    public function addTag(Tag $tag)
+    {
+        $tag->addOperation($this);
+        $this->tags[] = $tag;
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param Tag $tag
+     */
+    public function removeTag(Tag $tag)
+    {
+        $tag->removeOperation($this);
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Set rawLabel
+     *
+     * @param text $rawLabel
+     * @return Operation
+     */
+    public function setRawLabel($rawLabel)
+    {
+        $this->rawLabel = $rawLabel;
+        return $this;
+    }
+
+    /**
+     * Get rawLabel
+     *
+     * @return text
+     */
+    public function getRawLabel()
+    {
+        return $this->rawLabel;
+    }
+
+    public function hasTagBySlug($slug)
+    {
+        foreach ($this->tags as $tag) {
+            if ($tag->getSlug() === $slug) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function removeTagBySlug($slug)
+    {
+        foreach ($this->tags as $tag) {
+            if ($tag->getSlug() === $slug) {
+                $this->tags->removeElement($tag);
+            }
+        }
     }
 }
