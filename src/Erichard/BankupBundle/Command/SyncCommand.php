@@ -61,15 +61,22 @@ class SyncCommand extends ContainerAwareCommand
                 $id = $operationRepository->createId($remoteOperation);
 
                 if (!$operationRepository->find($id)) {
+
                     $operation = new Operation();
                     $operation->setId($id);
-                    $operation->setLabel($remoteOperation->getLabel());
+                    $operation->setRawLabel($remoteOperation->getLabel());
                     $operation->setBalance($remoteOperation->getAmount());
                     $operation->setDate($remoteOperation->getDate());
-
                     $account->addOperation($operation);
+
+                    $operation = $container
+                        ->get('erichard_bankup.rules_manager')
+                        ->processOne($operation)
+                    ;
+
                     $em->persist($operation);
                     $countOperation++;
+
                 }
             }
         }
