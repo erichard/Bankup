@@ -1,0 +1,10 @@
+login:
+    pattern:   /login
+    defaults:  { _controller: ErichardBankupBundle:Security:login }
+
+login_check:
+    pattern:   /login_check
+
+homepage:
+    pattern:    /
+    defaults:  { _controller: ErichardBankupBundle:Home:home }

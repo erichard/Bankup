@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+  <div class="summary">
+    {% render "ErichardBankupBundle:Account:summary" %}
+  </div>
+
+  <div class="history">
+    {% render "ErichardBankupBundle:Operation:history" with {'max' : '30'} %}
+  </div>
+{% endblock %}

@@ -1,0 +1,5 @@
+<ul>
+  {% for account in accounts %}
+      <li><a href="">{{ account.name }}</a> <span>{{ (account.balance/100)|number_format(2, ',', ' ') }}&nbsp;€</span></li>
+  {% endfor %}
+</ul>

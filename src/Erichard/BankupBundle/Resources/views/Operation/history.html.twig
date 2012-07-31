@@ -1,0 +1,30 @@
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Compte</th>
+      <th>Operation</th>
+      <th>Montant</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for operation in operations %}
+      <tr>
+        <td>{{ operation.date|date('d/m/Y') }}</td>
+        <td>{{ operation.account.name }}</td>
+        <td>
+          {{ operation.label }}<br />
+          <small>
+            {%- spaceless -%}
+            {%- for tag in operation.tags -%}
+              <span class="tag">{{ tag.name }} | </span>
+            {% endfor %}
+            {% endspaceless %}
+          </small>
+          </td>
+        <td>{{ (operation.balance/100)|number_format(2, ',', ' ') }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
